@@ -1,37 +1,19 @@
-#[macro_use]
 use vial::prelude::*;
-use horrorshow::owned_html;
-use horrorshow::html;
+
 routes! {
-    GET "/" => |_| html! {
-        p {
-            : "You're looking for this: ";
-            a(href="/echo") { : "echo" }
-        }
-    };
-    GET "/echo" => echo;
-    POST "/echo" => post;
+    GET "/info" => |req| format!(
+        "<p>Name: {}</p>", req.query("name").unwrap_or("None")
+    );
+    GET "/" => index;
 }
 
-fn echo(_: Request) -> impl Responder {
-    html! {
-        form(method="POST") {
-            p {
-            : "Type something: ";
-                input(type="text", name="echo");
-                input(type="submit");
-            }
-        }
-    }
-}
-
-fn post(req: Request) -> impl Responder {
-    owned_html! {
-        h1: req.form("echo")
-            .unwrap_or("You didn't say anything!");
-    }
+fn index(req: Request) -> impl Responder {
+    "<form method='GET'>
+        <p>Enter your name: <input type='text' name='name'/></p>
+        <input type='submit'/>
+    </form>"
 }
 
 fn main() {
-    vial::run!("localhost:2000").unwrap();
+    run!("localhost:2000");
 }
