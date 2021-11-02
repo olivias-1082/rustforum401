@@ -1,0 +1,9 @@
+[package]
+name = "rsproj"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+
+vial = { version = "*", features = ["horror", "cookies"] }
