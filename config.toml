@@ -1,0 +1,14 @@
+host = "localhost"
+port = 2000
+path = "http://localhost:2000"
+static_path = "http://localhost:2000/static"
+upload_path = "http://localhost:2000"  
+
+admins = ["admin"]
+
+[mysql]
+host = "localhost"
+port = 5432
+username = "postgres"
+password = "401Database"
+db_name = "postgres"  
