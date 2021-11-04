@@ -13,14 +13,13 @@ pub fn create_message(message: &Value) -> Option<String> {
 
     let mut stmt = SQL_POOL.prepare(r#"
                         INSERT INTO message
-                        (id, comment_id, topic_id, from_user_id, to_user_id, type, create_time)
+                        (id, comment_id, from_user_id, to_user_id, type, create_time)
                         VALUES (?, ?, ?, ?, ?, ?, ?);
                         "#).unwrap();
 
     let result = stmt.execute((
         &*message_id,
         comment_id,
-        message["topic_id"].as_str().unwrap(),
         message["from_user_id"].as_str().unwrap(),
         message["to_user_id"].as_u64().unwrap(),
         message["type"].as_u64().unwrap(),
@@ -48,10 +47,8 @@ pub fn get_user_message_list(user_id: u16, page: u32) -> Vec<Value> {
 
     let sql = r#"
         SELECT
-        m.id as message_id, m.comment_id, m.topic_id, t.title, u.username, m.type
+        m.id as message_id, m.comment_id, t.title, u.username, m.type
         FROM message AS m
-        LEFT JOIN topic AS t
-        ON m.topic_id = t.id
         LEFT JOIN user AS u
         ON m.from_user_id = u.id
         WHERE m.to_user_id = ?
@@ -66,7 +63,6 @@ pub fn get_user_message_list(user_id: u16, page: u32) -> Vec<Value> {
             json!({
                 "message_id": row.get::<String, _>(0).unwrap(),
                 "comment_id": row.get::<String, _>(1).unwrap(),
-                "topic_id": row.get::<String, _>(2).unwrap(),
                 "title": row.get::<String, _>(3).unwrap(),
                 "username": row.get::<String, _>(4).unwrap(),
                 "type": row.get::<u8, _>(5).unwrap()
