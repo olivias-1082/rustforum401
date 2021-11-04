@@ -25,7 +25,7 @@ impl MySqlPool {
             .ip_or_hostname(Some(host))
             .tcp_port(port as u16)
             .db_name(Some(db_name))
-            .prefer_socket(false);  // 默认为true，为true时win10报错
+            .prefer_socket(false);  
 
         let pool = mysql::Pool::new(builder).unwrap();
 
