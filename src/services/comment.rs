@@ -10,7 +10,7 @@ use models::comment::Comment;
 pub fn create_comment(comment: &Value) -> Option<String> {
 
     let create_time = gen_datetime().to_string();
-    let comment_id = gen_md5(&*(topic_id.to_string() + &*create_time));
+    let comment_id = gen_md5(&*() + &*create_time));
 
     let mut stmt = SQL_POOL.prepare(r#"
                         INSERT INTO comment
@@ -96,7 +96,7 @@ pub fn get_comment(comment_id: &str) -> Option<Comment> {
 
     let mut result = SQL_POOL.prep_exec(r#"
                           SELECT
-                          c.id, user_id, username, avatar_url,  content,
+                          c.id, user_id, username,  content,
                           (SELECT count(id) FROM comment_vote WHERE state = 1 AND comment_id = c.id) AS agree_count,
                           (SELECT count(id) FROM comment_vote WHERE state = -1 AND comment_id = c.id) AS disagree_count,
                           c.status, c.create_time, c.update_time
