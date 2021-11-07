@@ -219,8 +219,6 @@ pub fn get_user(username: &str) -> Option<User> {
     Some(User {
         id: row.get::<u16, _>(0).unwrap(),
         username: row.get::<String, _>(1).unwrap(),
-        user_role: row.get::<u8, _>(3).unwrap(),
-        register_source: row.get::<u8, _>(4).unwrap(),
         email: row.get::<String, _>(7).unwrap(),        
         site: row.get::<String, _>(11).unwrap(),
         create_time: row.get::<NaiveDateTime, _>(15).unwrap(),
@@ -233,19 +231,17 @@ pub fn create_user(user: &Value) -> Option<String> {
 
     let mut stmt = SQL_POOL.prepare(r#"
                         INSERT INTO user
-                        (username, register_source, email,  password, salt, site, create_time, update_time)
+                        (username, email,  password, salt, site, create_time, update_time)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         "#).unwrap();
 
     let result = stmt.execute((
         username,
-        user["register_source"].as_u64().unwrap(),
         user["email"].as_str().unwrap(),
         user["password_hashed"].as_str().unwrap(),
         user["salt"].as_str().unwrap(),
         &*check_and_get_string(&user["site"]),
         user["create_time"].as_str().unwrap(),
-        user["create_time"].as_str().unwrap()
     ));
 
     if let Err(MySqlError(ref err)) = result {

@@ -51,13 +51,13 @@ pub struct RedisConfig {
 pub fn get_redis_config(config: &Config) -> RedisConfig {
 
     let table = config.value();
-    let redis_config = table.get("redis").unwrap().as_table().unwrap();
     let protocol = redis_config.get("protocol").unwrap().as_str().unwrap();
     let host = redis_config.get("host").unwrap().as_str().unwrap();
     let port = redis_config.get("port").unwrap().as_integer().unwrap().to_string();
+    let redis_config = table.get("redis").unwrap().as_table().unwrap();
+    
     let username = redis_config.get("username").unwrap().as_str().unwrap();
     let password = redis_config.get("password").unwrap().as_str().unwrap();
-    let max_age = redis_config.get("max_age").unwrap().as_integer().unwrap();
     let connect_string;
 
     if password == "" {
@@ -70,6 +70,5 @@ pub fn get_redis_config(config: &Config) -> RedisConfig {
 
     RedisConfig {
         connect_string: connect_string,
-        expire: max_age as u64
     }
 }
