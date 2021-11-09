@@ -10,7 +10,7 @@ use models::comment::Comment;
 pub fn create_comment(comment: &Value) -> Option<String> {
 
     let create_time = gen_datetime().to_string();
-    let comment_id = gen_md5(&*() + &*create_time));
+    let comment_id = gen_md5(&*() + &*create_time);
 
     let mut stmt = SQL_POOL.prepare(r#"
                         INSERT INTO comment
