@@ -1,0 +1,47 @@
+++++++++++++++++++++++++++++
++++++HTML PAGE TEMPLATE+++++
+++Functionality Checklists++
+++++++++++++++++++++++++++++
+
+HOME
+    [X] Boards
+    [ ] Login
+
+BOARD
+    [ ] Display threads
+    [ ] Login
+    [ ] New thread
+    [ ] Home
+    [ ] Multiple pages of threads
+
+THREAD
+    [ ] Display title, thread ID
+    [ ] Display replies
+    [ ] Login
+    [ ] Home
+    [ ] Multiple pages of replies
+
+NEW THREAD
+    [ ] Require login
+    [ ] Title field
+    [ ] Body field
+    [ ] Submit button
+
+++++++++++++++++++++++++++++
++++DATABASE FUNCTIONALITY+++
+++++++++++++++++++++++++++++
+
+BOARD TABLE
+    [ ] Board title
+    [ ] List of thread IDs
+
+THREAD TABLE
+    [ ] TID
+    [ ] Title
+    [ ] List of reply IDs
+
+REPLY TABLE
+    [ ] PID
+    [ ] Author
+    [ ] Datetime
+    [ ] Body

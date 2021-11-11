@@ -90,6 +90,7 @@ fn boardPage(_: Request) -> impl Responder{
     });
 }
 
+//TO-DO add augment to specify which thread in which board is being requested
 fn threadPage(_: Request) -> impl Responder{
     let threadP = format!("{}", html! {
         : doctype::HTML;
@@ -123,6 +124,7 @@ fn threadPage(_: Request) -> impl Responder{
     });
 }
 
+//TO-DO: add augment to specify which board the thread is being created in
 fn newThreadPage(_: Request) -> impl Responder{
     let newThreadP = format!("{}", html! {
         : doctype::HTML;
